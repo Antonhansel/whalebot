@@ -22,5 +22,6 @@
 	"bij.coffee",
 	"lolz.coffee",
 	"bees.coffee",
-	"aww.coffee"
+	"aww.coffee",
+	"github-pull-request-notifier.coffee"
 ]
