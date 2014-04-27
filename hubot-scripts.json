@@ -2,7 +2,6 @@
 	"shipit.coffee",
 	"ackbar.coffee",
 	"heroku-status.coffee",
-	"pivotal.coffee",
 	"status.coffee",
 	"swanson.coffee",
 	"thanks-obama.coffee",
@@ -24,5 +23,7 @@
 	"bees.coffee",
 	"aww.coffee",
 	"github-pull-request-notifier.coffee",
-	"stallman.coffee"
+	"stallman.coffee",
+	"announce.coffee",
+	"hipchat-api.coffee"
 ]
