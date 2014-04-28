@@ -17,7 +17,6 @@
 	"gosling.coffee",
 	"grumpycat.coffee",
 	"hackernews.coffee",
-	"harvest.coffee",
 	"bij.coffee",
 	"lolz.coffee",
 	"bees.coffee",
@@ -25,5 +24,16 @@
 	"github-pull-request-notifier.coffee",
 	"stallman.coffee",
 	"announce.coffee",
-	"hipchat-api.coffee"
+	"hipchat-api.coffee",
+	"adult.coffee",
+	"animal.coffee",
+	"defprogramming.coffee",
+	"ferengi_rules_of_acquisition.coffee",
+	"github-credentials.coffee",
+	"isup.coffee",
+	"pomodoro.coffee",
+	"redis-brain.coffee",
+	"time.coffee",
+	"which-do-you-prefer.coffee",
+	"wwls.coffee"
 ]
