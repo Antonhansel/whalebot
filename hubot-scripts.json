@@ -32,7 +32,7 @@
 	"github-credentials.coffee",
 	"isup.coffee",
 	"pomodoro.coffee",
-	"redis-brain.coffee",
+	// "redis-brain.coffee",
 	"time.coffee",
 	"which-do-you-prefer.coffee",
 	"wwls.coffee"
