@@ -30,7 +30,7 @@ module.exports = (robot) ->
     color = data.color
     from = data.from
 
-    robot.http("http://whalebot.herokuapp.com/hubot/hipchat?room_id="+room+"&from="+from+"&message="+message+"&color="+color+")
+    robot.http("http://whalebot.herokuapp.com/hubot/hipchat?room_id="+room+"&from="+from+"&message="+message+"&color="+color)
       .get() (err, res, body) ->
         console.log body
 
