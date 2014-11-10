@@ -8,7 +8,7 @@
 #   hubot die - End hubot process
 
 module.exports = (robot) ->
-  robot.respond /PING$/i, (msg) ->
+  robot.hear /PING$/i, (msg) ->
     msg.send "PONG"
 
   robot.respond /ECHO (.*)$/i, (msg) ->
