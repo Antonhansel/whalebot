@@ -83,6 +83,9 @@ post = (path, params, cb, method='POST') ->
     cb e, 500, "Client Error"
   req.end(bodyParams)
 
+del = (path, params, cb) ->
+  post path, params, cb, 'DELETE'
+
 module.exports = (robot) ->
   robot.respond /ci\??$/i, (msg) ->
     get "help", { }, (err, statusCode, body) ->
@@ -106,7 +109,7 @@ module.exports = (robot) ->
 
       msg.send response
 
-  robot.respond /ci setup ([\.\-\/_a-z0-9]+)(\s?([\.\-_a-z0-9]+))?/i, (msg) ->
+  robot.respond /ci setup ([\.\-\/_a-z0-9]+)(\s([\.\-_a-z0-9]+)(\s([\.\-_a-z0-9]+))?)?/i, (msg) ->
     nwo     = msg.match[1]
     params  = "?nwo=#{nwo}"
     if msg.match[3] != undefined
@@ -137,6 +140,23 @@ module.exports = (robot) ->
         msg.send body
       else
         msg.send "I couldn't update the room. Got HTTP status #{statusCode}"
+
+  robot.respond /ci set context ([-_0-9a-zA-Z\.]+) (.*)$/i, (msg) ->
+    repo = msg.match[1]
+    context = encodeURIComponent(msg.match[2])
+    put "#{repo}/context?context=#{context}", {}, (err, statusCode, body) ->
+      if [404, 403, 200].indexOf(statusCode) > -1
+        msg.send body
+      else
+        msg.send "I couldn't update the context. Got HTTP status #{statusCode}"
+
+  robot.respond /ci unset context ([-_0-9a-zA-Z\.]+)$/i, (msg) ->
+    repo = msg.match[1]
+    del "#{repo}/context", {}, (err, statusCode, body) ->
+      if [404, 403, 200].indexOf(statusCode) > -1
+        msg.send body
+      else
+        msg.send "I couldn't update the context. Got HTTP status #{statusCode}"
 
   robot.respond /ci rooms$/i, (msg) ->
     get "rooms", { }, (err, statusCode, body) ->
@@ -180,3 +200,23 @@ module.exports = (robot) ->
   robot.router.post "/janky", (req, res) ->
     robot.messageRoom req.body.room, req.body.message
     res.end "ok"
+
+  robot.respond /ci show ([-_\.0-9a-zA-Z]+)/i, (msg) ->
+    app = msg.match[1]
+    get "show/#{app}", { }, (err, statusCode, body) ->
+      if statusCode == 200
+        repo = JSON.parse(body)
+        lines = for key, val of repo
+          "#{key}: #{val}"
+        response = lines.join("\n")
+        msg.send response
+      else
+        replyMsg = "Error F7U12: Can't show: #{statusCode}: #{body}"
+        msg.reply replyMsg
+
+  robot.respond /ci delete ([-_\.0-9a-zA-Z]+)/i, (msg) ->
+    app = msg.match[1]
+    del "#{app}", {}, (err, statusCode, body) ->
+      if statusCode != 200
+        msg.reply "I got an error removing #{app}; sometimes deleting all the old commits/branches times out the unicorn. Maybe try again?"
+      msg.send body
