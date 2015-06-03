@@ -10,7 +10,7 @@ module.exports = (robot) ->
     env = msg.match[2]
 
     user = "admin"
-    pass = "Datarank123"
+    pass = process.env.DEPLOY_PASS
     auth = 'Basic ' + new Buffer(user + ':' + pass).toString('base64');
     data = JSON.stringify({
       name: "Whalebot #{app} Deployment"
